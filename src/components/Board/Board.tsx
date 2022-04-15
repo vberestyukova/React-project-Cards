@@ -4,6 +4,7 @@ import BoardItem from '../BoardItem/BoardItem';
 
 import styles from './Board.module.css';
 
+
 // @ts-ignore
 const Board: React.FC<any> = ({ accounts }) =>  {
     const sortedAccounts = accounts.map(x => x);

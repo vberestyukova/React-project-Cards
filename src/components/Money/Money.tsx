@@ -1,8 +1,12 @@
 import React from 'react';
 
 
+interface MoneyProps {
+    value?: number;
+    currency?: string;
+}
 
-const Money: React.FC<any> = (props) => {
+const Money: React.FC<MoneyProps> = (props) => {
     const intAndFractionalParts = String(props.value).split('.');
     const intPart = intAndFractionalParts[0];
     const fractionalPart = intAndFractionalParts[1];

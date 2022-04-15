@@ -4,7 +4,15 @@ import Money from '../Money/Money';
 
 import styles from './BoardItem.module.css';
 
-const BoardItem: React.FC<any> = ({ type, title, customTitle, currency, amount }) => {
+interface BorderItemProps {
+	type?: string;
+	title: string;
+	customTitle?: string;
+	currency?: string;
+	amount?: number;
+}
+
+const BoardItem: React.FC<BorderItemProps> = ({ type, title, customTitle, currency, amount }) => {
 
 
 	return (
