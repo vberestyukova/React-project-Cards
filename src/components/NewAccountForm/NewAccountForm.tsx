@@ -6,6 +6,7 @@ import Button from '../Button/Button';
 import styles from './NewAccountForm.module.css';
 import classNames from 'classnames';
 
+
 export default class NewAccountForm extends React.Component<any, any> {
 	constructor(props) {
 		super(props);
@@ -16,10 +17,12 @@ export default class NewAccountForm extends React.Component<any, any> {
 			year: ''
 		};
 
+		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleInputChange = this.handleInputChange.bind(this);
 	}
 
 	handleSubmit = event => {
-
+		this.setState({value: event.target.value});
 	};
 
 	handleInputChange = event => {
@@ -44,6 +47,7 @@ export default class NewAccountForm extends React.Component<any, any> {
 
 					<div className={styles.label}>VALID THRU</div>
 					<input
+						value={this.state.month}
 						className={classNames(styles.input, styles.inputDate)}
 						placeholder="MM"
 						name={"month"}
@@ -51,11 +55,13 @@ export default class NewAccountForm extends React.Component<any, any> {
 					/>
 					<input className={
 						classNames(styles.input, styles.inputDate)}
+						   value={this.state.year}
 						   placeholder="YY"
 						   name={"year"}
 						   onChange={this.handleInputChange}
 					/>
 					<Button type="submit">Привязать</Button>
+
 				</div>
 			</form>
 		);
