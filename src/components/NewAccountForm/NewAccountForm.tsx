@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import MaskedInput from 'react-maskedinput';
 
 import Button from '../Button/Button';
 
 import styles from './NewAccountForm.module.css';
 import classNames from 'classnames';
+
 
 
 export default class NewAccountForm extends React.Component<any, any> {
@@ -19,10 +20,30 @@ export default class NewAccountForm extends React.Component<any, any> {
 
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
+
 	}
 
+
 	handleSubmit = event => {
-		this.setState({value: event.target.value});
+		if (this.state.cardNumber !== '' && this.state.month !=='' && this.state.year !== '') {
+			event.preventDefault();
+			this.setState({
+				cardNumber: '',
+				month: '',
+				year: ''
+			});
+
+			let lastNumbersOfCard = this.state.cardNumber.split('');
+			let lastElem = '';
+			for (let i = 15 ; i< 19; i++) { lastElem+=lastNumbersOfCard[i];	}
+			this.props.handleSubmit(
+				{id: Date.now(),
+					type: 'external',
+					title: `Привязанная карта *${lastElem}`,
+				},
+			)
+		}
+
 	};
 
 	handleInputChange = event => {
@@ -43,6 +64,7 @@ export default class NewAccountForm extends React.Component<any, any> {
 						onChange={this.handleInputChange}
 						placeholder="Номер карты"
 						className={styles.input}
+						required
 					/>
 
 					<div className={styles.label}>VALID THRU</div>
@@ -52,6 +74,7 @@ export default class NewAccountForm extends React.Component<any, any> {
 						placeholder="MM"
 						name={"month"}
 						onChange={this.handleInputChange}
+						required
 					/>
 					<input className={
 						classNames(styles.input, styles.inputDate)}
@@ -59,9 +82,9 @@ export default class NewAccountForm extends React.Component<any, any> {
 						   placeholder="YY"
 						   name={"year"}
 						   onChange={this.handleInputChange}
+						   required
 					/>
 					<Button type="submit">Привязать</Button>
-
 				</div>
 			</form>
 		);
